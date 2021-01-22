@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Node Login</title>
+</head>
+<body>
+    <div>
+        <h1>
+            Login Page
+        </h1>
+        <form action="" method="POST" class="login">
+            Username : <input  type="text" name="user" id='user' >
+            Password : <input type="password" name="pass" id='pass'>
+            <input type="submit" value="Login" class="submit">
+        </form>
+    </div>
+<script>
+
+console.log('hii login');
+
+const login=document.querySelector('.login')
+login.addEventListener('submit',loginUser)
+
+async function loginUser(e){
+    e.preventDefault()
+    const user=document.getElementById('user').value
+    const pass=document.getElementById('pass').value
+     
+    const result= await fetch('/api/login',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+            user,pass
+        })
+
+    }).then(res=>res.json())
+    if(result.status==='error'){
+        alert('INVALID USER/PASSWORD')
+    }
+    if (result.status==='ok'){
+        alert('Login Successfully . Kindly FUckoff')
+    }
+}
+</script>
+</body>
+</html>
